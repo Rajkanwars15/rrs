@@ -5,22 +5,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $cnic = $_POST['cnic'];
 
     // Connect to MySQL database
-    $host = 'localhost';
-    $user = 'root';
-    $password = '123456789';
-    $database = 'railway_management_system';
+    $host = 'sql301.epizy.com';
+    $user = 'epiz_33802660';
+    $pwd = 'mzJ8oZKpg8sNPe';
+    $database = 'epiz_33802660_rrsdata';
 
-    $conn = mysqli_connect($host, $user, $password, $database);
+    $conn = mysqli_connect($host, $user, $pwd, $database);
 
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
     // Prepare and execute SQL statement to insert user data into the database
-    $sql = "INSERT INTO users (name, email, password, cnic) VALUES ('$name', '$email', '$password', '$cnic')";
+    $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
 
     if (mysqli_query($conn, $sql)) {
         echo "User registered successfully";
@@ -59,8 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="email" id="email" name="email" required>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <label for="cnic">CNIC:</label>
-        <input type="text" id="cnic" name="cnic" required>
         <input type="submit" value="Sign Up">
     </form>
 </main>

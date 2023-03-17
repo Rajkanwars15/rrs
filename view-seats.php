@@ -22,12 +22,13 @@
 <main>
     <h2>View Available/Booked Seats</h2>
     <?php
-    // Establish a database connection
-    $dbhost = 'localhost';
-    $dbuser = 'root';
-    $dbpass = '123456789';
-    $dbname = 'railway_management_system';
-    $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+    // Connect to MySQL database
+    $host = 'sql301.epizy.com';
+    $user = 'epiz_33802660';
+    $password = 'mzJ8oZKpg8sNPe';
+    $database = 'epiz_33802660_rrsdata';
+
+    $conn = mysqli_connect($host, $user, $password, $database);
 
     // Check for errors in the database connection
     if (!$conn) {

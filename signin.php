@@ -18,7 +18,7 @@
 </nav>
 <main>
     <h2>Sign In</h2>
-    <form method="post" action="login.php">
+    <form action="login.php" method="post">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
         <label for="password">Password:</label>
