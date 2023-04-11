@@ -13,8 +13,11 @@ session_start();
 <?php include('header.php'); ?>
 <main>
     <h2>Welcome to the Railway Reservation System</h2>
-    <p>This system allows you to book a reservation, view available and booked seats, cancel a reservation, and apply for a refund.</p>
-    <p>Please sign up or sign in to get started.</p>
+    <?php if (isset($_SESSION['user_id'])): ?>
+        <p>You are currently logged in.</p>
+    <?php else: ?>
+        <p>Please sign up or sign in to get started.</p>
+    <?php endif; ?>
 </main>
 <?php include('footer.php'); ?>
 </body>
