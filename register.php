@@ -1,4 +1,8 @@
 <?php
+session_start();
+// Check if form is submitted
+require_once('config.php');
+
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data
@@ -6,20 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Connect to MySQL database
-    $host = 'sql301.epizy.com';
-    $user = 'epiz_33802660';
-    $pwd = 'mzJ8oZKpg8sNPe';
-    $database = 'epiz_33802660_rrsdata';
-
-    $conn = mysqli_connect($host, $user, $pwd, $database);
+    // Connect to MySQL database using the values defined in config.php
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    // Hash the user's password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
     // Prepare and execute SQL statement to insert user data into the database
-    $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+    $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
 
     if (mysqli_query($conn, $sql)) {
         echo "User registered successfully";
@@ -39,16 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <h1>Railway Reservation System</h1>
-</header>
-<nav>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-</nav>
+<?php include('header.php'); ?>
 <main>
     <h2>Sign Up</h2>
     <form method="post" action="register.php">
@@ -61,8 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="submit" value="Sign Up">
     </form>
 </main>
-<footer>
-    <p>&copy; 2023 Railway Reservation System</p>
-</footer>
+<?php include('footer.php'); ?>
 </body>
 </html>

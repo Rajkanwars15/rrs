@@ -6,16 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <h1>Railway Reservation System</h1>
-</header>
-<nav>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-</nav>
+<?php include('header.php'); ?>
 <main>
     <h2>Sign Up</h2>
     <form method="post" action="register.php">
@@ -28,8 +19,6 @@
         <input type="submit" value="Sign Up">
     </form>
 </main>
-<footer>
-    <p>&copy; 2023 Railway Reservation System</p>
-</footer>
+<?php include('footer.php'); ?>
 </body>
 </html>
