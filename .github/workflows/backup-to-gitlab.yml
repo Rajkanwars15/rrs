@@ -1,0 +1,29 @@
+name: Backup to GitLab
+
+on:
+  push:    # or you can use schedule or workflow_dispatch triggers
+    branches:
+      - main
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      # Optionally: Create GitLab project if it doesn't exist yet
+      - name: Create GitLab project (if needed)
+        run: |
+          curl --silent --fail --header "Authorization: Bearer ${{ secrets.GITLAB_TOKEN }}" \
+            --data "{\"name\":\"${{ github.event.repository.name }}\",\"visibility\":\"private\"}" \
+            "https://gitlab.com/api/v4/projects" || echo "Project may already exist."
+      
+      # Clone the repository as a mirror
+      - name: Clone repository as mirror
+        run: |
+          git clone --mirror https://github.com/${{ github.repository }}.git repo.git
+      
+      # Push the mirror to the corresponding GitLab project
+      - name: Mirror push to GitLab
+        run: |
+          cd repo.git
+          git remote add gitlab https://gitlab.com/${{ secrets.GITLAB_USERNAME }}/${{ github.event.repository.name }}.git
+          git push --mirror gitlab
