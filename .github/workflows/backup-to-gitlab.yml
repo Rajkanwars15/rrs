@@ -1,7 +1,7 @@
 name: Backup to GitLab
 
 on:
-  push:    # or you can use schedule or workflow_dispatch triggers
+  push:
     branches:
       - main
 
@@ -25,5 +25,5 @@ jobs:
       - name: Mirror push to GitLab
         run: |
           cd repo.git
-          git remote add gitlab https://gitlab.com/${{ secrets.GITLAB_USERNAME }}/${{ github.event.repository.name }}.git
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/${{ secrets.GITLAB_USERNAME }}/${{ github.event.repository.name }}.git
           git push --mirror gitlab
